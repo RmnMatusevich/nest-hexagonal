@@ -2,7 +2,7 @@ import { ActivityEntity } from './activity.entity';
 import { AccountId } from './account.entity';
 import { MoneyEntity } from './money.entity';
 
-export class ActivityWindow {
+export class ActivityWindowEntity {
   private _activities: ActivityEntity[];
 
   public get activities(): ActivityEntity[] {

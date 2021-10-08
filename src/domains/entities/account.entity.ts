@@ -1,5 +1,5 @@
 import { MoneyEntity } from './money.entity';
-import { ActivityWindow } from './activity-window.entity';
+import { ActivityWindowEntity } from './activity-window.entity';
 import { ActivityEntity } from './activity.entity';
 
 export type AccountId = string;
@@ -8,10 +8,10 @@ export class AccountEntity {
   constructor(
     private _id: AccountId,
     private _baseLineBalance: MoneyEntity,
-    private _activityWindow: ActivityWindow,
+    private _activityWindow: ActivityWindowEntity,
   ) {}
 
-  public get activityWindow(): ActivityWindow {
+  public get activityWindow(): ActivityWindowEntity {
     return this._activityWindow;
   }
   public get baseLineBalance(): MoneyEntity {
@@ -33,6 +33,7 @@ export class AccountEntity {
     }
     const withdrawal: ActivityEntity = new ActivityEntity(
       this.id,
+      this.id,
       targetAccountId,
       new Date(),
       money,
@@ -43,6 +44,7 @@ export class AccountEntity {
 
   public deposit(money: MoneyEntity, sourceAccountId: AccountId): boolean {
     const deposit: ActivityEntity = new ActivityEntity(
+      this.id,
       sourceAccountId,
       this.id,
       new Date(),
