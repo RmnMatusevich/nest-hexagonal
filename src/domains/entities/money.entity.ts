@@ -20,4 +20,8 @@ export class MoneyEntity {
   negate() {
     return new MoneyEntity(this.amount.negated());
   }
+
+  isPositiveOrZero(): boolean {
+    return this.amount.comparedTo(0) >= 0;
+  }
 }
