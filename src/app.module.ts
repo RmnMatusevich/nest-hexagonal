@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 
-import { AccountPersistanceModule } from './modules/account-persistence/account-persistence.module';
+import { AccountPersistenceModule } from './modules/account-persistence/account-persistence.module';
 import { AccountWebModule } from './modules/account-web/account-web.module';
 
 @Module({
@@ -13,7 +13,7 @@ import { AccountWebModule } from './modules/account-web/account-web.module';
       logging: true,
       autoLoadEntities: true,
     }),
-    AccountPersistanceModule,
+    AccountPersistenceModule,
     AccountWebModule,
   ],
 })

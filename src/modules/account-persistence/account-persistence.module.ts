@@ -1,11 +1,11 @@
-import { Module, Global } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { AccountPersistenceAdapterService } from './account-persistence-adapter.service';
 import { AccountOrmEntity } from './account.orm-entity';
 import { ActivityOrmEntity } from './activity.orm-entity';
-import { SendMoneyUseCaseSymbol } from 'src/domains/ports/in/send-money.use-case';
-import { SendMoneyService } from 'src/domains/services/send-money.service';
+import { AccountPersistenceAdapterService } from './account-persistence-adapter.service';
+import { SendMoneyUseCaseSymbol } from '../../domains/ports/in/send-money.use-case';
+import { SendMoneyService } from '../../domains/services/send-money.service';
+
 @Global()
 @Module({
   imports: [TypeOrmModule.forFeature([AccountOrmEntity, ActivityOrmEntity])],
@@ -26,4 +26,4 @@ import { SendMoneyService } from 'src/domains/services/send-money.service';
   ],
   exports: [SendMoneyUseCaseSymbol],
 })
-export class AccountPersistanceModule {}
+export class AccountPersistenceModule {}
