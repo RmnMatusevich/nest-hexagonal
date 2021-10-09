@@ -5,7 +5,6 @@ import { AccountId, AccountEntity } from '../../entities/account.entity';
 import { SendMoneyCommand } from '../../ports/in/send-money.command';
 import { MoneyEntity } from '../../entities/money.entity';
 import { SendMoneyService } from '../send-money.service';
-import BigNumber from 'bignumber.js';
 
 describe('SendMoneyService', () => {
   it('should transaction success', () => {
@@ -34,7 +33,7 @@ describe('SendMoneyService', () => {
     const command = new SendMoneyCommand(
       sourceAccount.id,
       targetAccount.id,
-      MoneyEntity.of(new BigNumber(300)),
+      MoneyEntity.of(300),
     );
     const sendMoneyService = new SendMoneyService(
       instance(loadAccountPort),

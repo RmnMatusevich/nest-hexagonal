@@ -5,7 +5,6 @@ import {
 } from 'src/domains/ports/in/send-money.use-case';
 import { SendMoneyCommand } from 'src/domains/ports/in/send-money.command';
 import { MoneyEntity } from 'src/domains/entities/money.entity';
-import BigNumber from 'bignumber.js';
 
 @Controller('/account/send')
 export class SendMoneyController {
@@ -19,12 +18,12 @@ export class SendMoneyController {
     @Query('targetAccountId') targetAccountId: string,
     @Query('amount') amount: number,
   ) {
-    const command = new SendMoneyCommand(
+    const sendMoneyCommand = new SendMoneyCommand(
       sourceAccountId,
       targetAccountId,
-      MoneyEntity.of(new BigNumber(amount)),
+      MoneyEntity.of(amount),
     );
-    const result = await this._sendMoneyUseCase.sendMoney(command);
+    const result = await this._sendMoneyUseCase.sendMoney(sendMoneyCommand);
     return { result };
   }
 }

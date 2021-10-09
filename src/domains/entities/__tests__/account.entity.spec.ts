@@ -2,7 +2,6 @@ import { AccountEntity, AccountId } from '../account.entity';
 import { MoneyEntity } from '../money.entity';
 import { ActivityWindowEntity } from '../activity-window.entity';
 import { ActivityEntity } from '../activity.entity';
-import BigNumber from 'bignumber.js';
 
 describe('AccountEntity', () => {
   it('should calculatesBalance', async () => {
@@ -13,25 +12,25 @@ describe('AccountEntity', () => {
       '42',
       accountId,
       new Date(),
-      MoneyEntity.of(new BigNumber(999)),
+      MoneyEntity.of(999),
     );
     const secondActivity = new ActivityEntity(
       '42',
       '42',
       accountId,
       new Date(),
-      MoneyEntity.of(new BigNumber(1)),
+      MoneyEntity.of(1),
     );
 
     const account = new AccountEntity(
       accountId,
-      MoneyEntity.of(new BigNumber(555)),
+      MoneyEntity.of(555),
       new ActivityWindowEntity()
         .addActivity(firstActivity)
         .addActivity(secondActivity),
     );
     const balance = account.calculateBalance();
-    expect(balance.amount).toEqual(MoneyEntity.of(new BigNumber(1555)).amount);
+    expect(balance.amount).toEqual(MoneyEntity.of(1555).amount);
   });
 
   it('should withdrawalSucceeds', async () => {
@@ -39,16 +38,16 @@ describe('AccountEntity', () => {
 
     const account = new AccountEntity(
       accountId,
-      MoneyEntity.of(new BigNumber(1555)),
+      MoneyEntity.of(1555),
       new ActivityWindowEntity(),
     );
 
-    const success = account.withdraw(MoneyEntity.of(new BigNumber(555)), '99');
+    const success = account.withdraw(MoneyEntity.of(555), '99');
 
     expect(success).toBeTruthy();
     expect(account.activityWindow.activities.length).toEqual(1);
     expect(account.calculateBalance().amount).toEqual(
-      MoneyEntity.of(new BigNumber(1000)).amount,
+      MoneyEntity.of(1000).amount,
     );
   });
 
@@ -57,16 +56,16 @@ describe('AccountEntity', () => {
 
     const account = new AccountEntity(
       accountId,
-      MoneyEntity.of(new BigNumber(1555)),
+      MoneyEntity.of(1555),
       new ActivityWindowEntity(),
     );
 
-    const success = account.withdraw(MoneyEntity.of(new BigNumber(1556)), '99');
+    const success = account.withdraw(MoneyEntity.of(1556), '99');
 
     expect(success).toBeFalsy();
     expect(account.activityWindow.activities.length).toEqual(0);
     expect(account.calculateBalance().amount).toEqual(
-      MoneyEntity.of(new BigNumber(1555)).amount,
+      MoneyEntity.of(1555).amount,
     );
   });
 
@@ -75,16 +74,16 @@ describe('AccountEntity', () => {
 
     const account = new AccountEntity(
       accountId,
-      MoneyEntity.of(new BigNumber(1555)),
+      MoneyEntity.of(1555),
       new ActivityWindowEntity(),
     );
 
-    const success = account.deposit(MoneyEntity.of(new BigNumber(445)), '99');
+    const success = account.deposit(MoneyEntity.of(445), '99');
 
     expect(success).toBeTruthy();
     expect(account.activityWindow.activities.length).toEqual(1);
     expect(account.calculateBalance().amount).toEqual(
-      MoneyEntity.of(new BigNumber(2000)).amount,
+      MoneyEntity.of(2000).amount,
     );
   });
 });

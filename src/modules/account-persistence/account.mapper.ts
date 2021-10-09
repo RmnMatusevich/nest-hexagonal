@@ -4,7 +4,6 @@ import { ActivityWindowEntity } from '../../domains/entities/activity-window.ent
 import { AccountEntity } from '../../domains/entities/account.entity';
 import { ActivityEntity } from '../../domains/entities/activity.entity';
 import { MoneyEntity } from '../../domains/entities/money.entity';
-import BigNumber from 'bignumber.js';
 
 export class AccountMapper {
   static mapToDomain(
@@ -26,7 +25,7 @@ export class AccountMapper {
         activity.sourceAccountId,
         activity.targetAccountId,
         new Date(activity.timestamp),
-        MoneyEntity.of(new BigNumber(activity.amount)),
+        MoneyEntity.of(activity.amount),
         activity.id,
       );
       activityWindowEntity.addActivity(activityEntity);
@@ -34,7 +33,7 @@ export class AccountMapper {
     return activityWindowEntity;
   }
 
-  static mapToActivityOrmEntity(activity: ActivityEntity): ActivityOrmEntity {
+  static mapToOrmEntity(activity: ActivityEntity) {
     const activityOrmEntity = new ActivityOrmEntity();
     activityOrmEntity.timestamp = activity.timestamp.getTime();
     activityOrmEntity.ownerAccountId = activity.ownerAccountId;

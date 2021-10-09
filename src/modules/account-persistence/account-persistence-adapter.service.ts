@@ -9,7 +9,7 @@ import { ActivityOrmEntity } from './activity.orm-entity';
 import { AccountMapper } from './account.mapper';
 
 @Injectable()
-export class AccountPersistenceAdapter
+export class AccountPersistenceAdapterService
   implements LoadAccountPort, UpdateAccountStatePort
 {
   constructor(
@@ -35,9 +35,7 @@ export class AccountPersistenceAdapter
   updateActivities(account: AccountEntity) {
     account.activityWindow.activities.forEach((activity) => {
       if (activity.id === null) {
-        this._activityRepository.save(
-          AccountMapper.mapToActivityOrmEntity(activity),
-        );
+        this._activityRepository.save(AccountMapper.mapToOrmEntity(activity));
       }
     });
   }

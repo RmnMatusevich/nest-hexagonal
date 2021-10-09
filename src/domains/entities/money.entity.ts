@@ -2,10 +2,12 @@ import { BigNumber } from 'bignumber.js';
 
 export class MoneyEntity {
   constructor(private readonly _amount: BigNumber) {}
+
   static ZERO() {
     return new MoneyEntity(new BigNumber(0));
   }
-  static of(value: BigNumber) {
+
+  static of(value: number) {
     return new MoneyEntity(new BigNumber(value));
   }
 
@@ -23,5 +25,9 @@ export class MoneyEntity {
 
   isPositiveOrZero(): boolean {
     return this.amount.comparedTo(0) >= 0;
+  }
+
+  static minus(a: MoneyEntity, b: MoneyEntity) {
+    return new MoneyEntity(a.amount.minus(b.amount));
   }
 }
