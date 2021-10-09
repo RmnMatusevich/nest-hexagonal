@@ -4,7 +4,7 @@ import {
   AccountEntity,
   AccountId,
 } from '../../domains/entities/account.entity';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { AccountOrmEntity } from './account.orm-entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
